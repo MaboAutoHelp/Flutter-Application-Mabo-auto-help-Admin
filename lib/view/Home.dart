@@ -1,3 +1,5 @@
+import 'package:app_admin/view/Notifications.dart';
+import 'package:app_admin/view/Service.dart';
 import 'package:flutter/material.dart';
 
 
@@ -39,10 +41,10 @@ class _HomeState extends State<Home> {
             //  child: Pagepersonnelle(adminID: widget.adminID),
             ),
              Center(
-             // child: Service(adminID: widget.adminID),
+             child: Service(adminID: widget.adminID),
             ),
              Center(
-             // child: Notifications(adminID: '',),
+              child: Notifications(adminID: widget.adminID),
             ),
           ],
         ),
