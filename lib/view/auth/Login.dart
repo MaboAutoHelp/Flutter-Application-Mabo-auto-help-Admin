@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
 
     if (formData!.validate()) {
       var data = await authcontroller.LoginAuth(email.text, pwd.text);
-      if (data["message"] == "User doesn't exists!" &&
+      if (data["message"] == "User doesn't exists!" ||
           data["message"] == "email or password is not correct") {
         print("User doesn't exists! or  email or password is not correct");
       } else {
