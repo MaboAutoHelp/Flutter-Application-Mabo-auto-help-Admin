@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ServiceController {
   Future SubmitServiceRequest(BuildContext context, String userID, String serviceName, DateTime date, TimeOfDay time, String carType) async {
-    var url = "http://192.168.1.21:8000/Service/registerService";
+    var url = "http://192.168.1.17:8000/Service/registerService";
     var response = await http.post(
       Uri.parse(url),
       body: jsonEncode(<String, String>{
