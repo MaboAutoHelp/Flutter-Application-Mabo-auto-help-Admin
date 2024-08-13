@@ -12,4 +12,16 @@ class Notificationscontroller {
       throw Exception('Failed to load notifications');
     }
   }
+  static Future<void> updateService(String id, String ita) async {
+    var url = "http://192.168.1.17:8000/Service/updateService/$id";
+    var response = await http.put(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'ita': ita}),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update service');
+    }
+  }
 }

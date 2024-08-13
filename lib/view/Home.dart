@@ -1,5 +1,7 @@
+import 'package:app_admin/view/Micaniciens.dart';
 import 'package:app_admin/view/Notifications.dart';
-import 'package:app_admin/view/Service.dart';
+import 'package:app_admin/view/PageAdmin.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -27,7 +29,7 @@ class _HomeState extends State<Home> {
                 icon: Icon(Icons.assignment_ind_rounded),
               ),
               Tab(
-                icon: Icon(Icons.car_crash_sharp),
+                icon: Icon(Icons.build),
               ),
               Tab(
                 icon: Icon(Icons.circle_notifications),
@@ -38,10 +40,10 @@ class _HomeState extends State<Home> {
         body: TabBarView(
           children: <Widget>[
             Center(
-            //  child: Pagepersonnelle(adminID: widget.adminID),
+             child: Pageadmin(adminID: widget.adminID),
             ),
              Center(
-             child: Service(adminID: widget.adminID),
+             child: Micaniciens(adminID: widget.adminID),
             ),
              Center(
               child: Notifications(adminID: widget.adminID),
