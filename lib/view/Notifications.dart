@@ -31,7 +31,7 @@ class _NotificationsState extends State<Notifications> {
     String itaValue = (action == 'accept') ? 'accepted' : 'rejected';
 
     try {
-      await Notificationscontroller.updateService(id, itaValue);
+      await Notificationscontroller.updateService(id, itaValue,widget.adminID);
       setState(() {
         notifications = Notificationscontroller.getNotifications();
       });
