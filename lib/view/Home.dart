@@ -1,6 +1,7 @@
 import 'package:app_admin/view/Micaniciens.dart';
 import 'package:app_admin/view/Notifications.dart';
 import 'package:app_admin/view/PageAdmin.dart';
+import 'package:app_admin/view/Test.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 1,
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Sign out'),
@@ -34,6 +35,9 @@ class _HomeState extends State<Home> {
               Tab(
                 icon: Icon(Icons.circle_notifications),
               ),
+              Tab(
+                icon: Icon(Icons.add_task_sharp),
+              ),
             ],
           ),
         ),
@@ -47,6 +51,9 @@ class _HomeState extends State<Home> {
             ),
              Center(
               child: Notifications(adminID: widget.adminID),
+            ),
+            Center(
+              child: Test(adminID: widget.adminID),
             ),
           ],
         ),
