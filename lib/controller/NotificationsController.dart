@@ -13,7 +13,7 @@ class Notificationscontroller {
     }
   }*/
   static Future<List> getNotificationsLivraison() async {
-    var url = "http://192.168.1.17:8000/Service/livraison";
+    var url = "http://192.168.1.16:8000/Service/livraison";
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return json.decode(response.body);
@@ -23,7 +23,7 @@ class Notificationscontroller {
   }
 
   static Future<List> getNotificationsSansLivraison() async {
-    var url = "http://192.168.1.17:8000/Service/SansLivraison";
+    var url = "http://192.168.1.16:8000/Service/SansLivraison";
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return json.decode(response.body);
@@ -32,7 +32,7 @@ class Notificationscontroller {
     }
   }
   static Future<void> updateService(String id, String ita ,String MicanicienID) async {
-    var url = "http://192.168.1.17:8000/Service/updateService/$id";
+    var url = "http://192.168.1.16:8000/Service/updateService/$id";
     var response = await http.put(
       Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
@@ -44,7 +44,7 @@ class Notificationscontroller {
     }
   }
   static Future<void> updateServiceIta(String id, String ita ) async {
-    var url = "http://192.168.1.17:8000/Service/updateService/$id";
+    var url = "http://192.168.1.16:8000/Service/updateService/$id";
     var response = await http.put(
       Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
