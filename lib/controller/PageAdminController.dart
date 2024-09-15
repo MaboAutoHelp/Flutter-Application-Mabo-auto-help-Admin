@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class Pageadmincontroller {
    Future<Map<String, dynamic>> GetAdmin(String adminID) async {
-    var url = "http://192.168.1.17:8000/admin/getAdmin/$adminID";
+    var url = "http://192.168.1.16:8000/admin/getAdmin/$adminID";
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
