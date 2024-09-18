@@ -4,8 +4,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Authcontroller {
+  static var por = "18";
   Future LoginAuth(email, pwd) async {
-    var url = "http://192.168.1.16:8000/admin/login";
+    var url = "http://192.168.1.$por:8000/admin/login";
     var response = await http.post(Uri.parse(url),
         body: jsonEncode(<String, String>{'username': email, 'password': pwd}),
         headers: {"Content-Type": "application/json"});
