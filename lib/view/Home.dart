@@ -23,7 +23,13 @@ class _HomeState extends State<Home> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Sign out'),
+          title: const Text(
+            'Sign out',
+            style: TextStyle(
+              color: Colors.white,  // لون النص في شريط التطبيق
+            ),
+          ),
+          backgroundColor: Color(0xFF003366),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
