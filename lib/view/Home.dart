@@ -1,4 +1,4 @@
-import 'package:app_admin/view/Micaniciens.dart';
+/*import 'package:app_admin/view/Micaniciens.dart';
 import 'package:app_admin/view/Notifications.dart';
 import 'package:app_admin/view/PageAdmin.dart';
 import 'package:app_admin/view/Test.dart';
@@ -66,4 +66,88 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}*/
+import 'package:app_admin/view/Micaniciens.dart';
+import 'package:app_admin/view/Notifications.dart';
+import 'package:app_admin/view/PageAdmin.dart';
+import 'package:app_admin/view/Test.dart';
+import 'package:app_admin/view/auth/Login.dart'; // تأكد من وجود صفحة Login لاستيرادها
+
+import 'package:flutter/material.dart';
+
+class Home extends StatefulWidget {
+  final String adminID;
+
+  const Home({super.key, required this.adminID});
+
+  @override
+  State<Home> createState() => _HomeState();
 }
+
+class _HomeState extends State<Home> {
+  // دالة لتسجيل الخروج
+  void _logout() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const Login()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Sign out',
+            style: TextStyle(
+              color: Colors.white, // لون النص في شريط التطبيق
+            ),
+          ),
+          backgroundColor: const Color(0xFF003366),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: _logout, // استدعاء دالة تسجيل الخروج عند الضغط
+            ),
+          ],
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.assignment_ind_rounded),
+              ),
+              Tab(
+                icon: Icon(Icons.build),
+              ),
+              Tab(
+                icon: Icon(Icons.circle_notifications),
+              ),
+              Tab(
+                icon: Icon(Icons.add_task_sharp),
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Center(
+              child: Pageadmin(adminID: widget.adminID),
+            ),
+            Center(
+              child: Micaniciens(adminID: widget.adminID),
+            ),
+            Center(
+              child: Notifications(adminID: widget.adminID),
+            ),
+            Center(
+              child: Test(adminID: widget.adminID),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

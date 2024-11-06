@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
     ));
   }
 }*/
-import 'package:app_admin/controller/Authcontroller.dart';
+/*import 'package:app_admin/controller/Authcontroller.dart';
 import 'package:app_admin/view/Home.dart';
 import 'package:flutter/material.dart';
 
@@ -151,8 +151,9 @@ class _LoginState extends State<Login> {
 
     if (formData!.validate()) {
       var data = await authcontroller.LoginAuth(email.text, pwd.text);
-      if (data["message"] == "User doesn't exists!" ||
-          data["message"] == "email or password is not correct") {
+      if (data["message"] == "Admin doesn't exists!" ||
+          data["message"] == "username or password is not correct" ||
+          data["message"] == "ita no") {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('User doesn\'t exist or email/password is incorrect'),
@@ -292,4 +293,180 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}*/
+import 'package:app_admin/controller/Authcontroller.dart';
+import 'package:app_admin/view/Home.dart';
+import 'package:flutter/material.dart';
+
+class Login extends StatefulWidget {
+  const Login({Key? key});
+
+  @override
+  State<Login> createState() => _LoginState();
 }
+
+class _LoginState extends State<Login> {
+  TextEditingController email = TextEditingController();
+  TextEditingController pwd = TextEditingController();
+
+  GlobalKey<FormState> fromstate = GlobalKey<FormState>();
+
+  Authcontroller authcontroller = Authcontroller();
+
+  // متغير لتخزين رسالة الخطأ
+  String? errorMessage;
+
+  Future<void> performLogin() async {
+    var formData = fromstate.currentState;
+
+    if (formData!.validate()) {
+      var data = await authcontroller.LoginAuth(email.text, pwd.text);
+      if (data["message"] == "Admin doesn't exists!" ||
+          data["message"] == "username or password is not correct" ||
+          data["message"] == "ita no") {
+        setState(() {
+          errorMessage = 'User doesn\'t exist or email/password is incorrect';
+        });
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home(adminID: data['adminID'])),
+        );
+      }
+    } else {
+      setState(() {
+        errorMessage = 'Form is invalid, please correct the fields';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Form(
+            key: fromstate,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Mabo Auto Help Admin',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF003366), // لون أزرق داكن
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
+                  Row(
+                    children: [
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.lightBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 20),
+
+                  ///------------------Email---------------------
+                  TextFormField(
+                    controller: email,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Username is required';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Username",
+                      prefixIcon: Icon(Icons.email, color: Colors.lightBlue),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.lightBlue),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+
+                  ///-------------------Pwd--------------------
+                  TextFormField(
+                    controller: pwd,
+                    obscureText: true,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Password is required';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Password",
+                      prefixIcon: Icon(Icons.lock, color: Colors.lightBlue),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.lightBlue),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+
+                  ///-------------------Login Button--------------------
+                  ElevatedButton(
+                    onPressed: () {
+                      performLogin();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF003366), // اللون الأزرق الداكن
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 50,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+
+                  // عرض رسالة الخطأ في أسفل الصفحة
+                  if (errorMessage != null) ...[
+                    SizedBox(height: 20),
+                    Text(
+                      errorMessage!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ]
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
