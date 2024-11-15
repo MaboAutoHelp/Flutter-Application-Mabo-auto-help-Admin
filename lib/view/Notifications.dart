@@ -283,6 +283,7 @@ class _NotificationsState extends State<Notifications> {
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:app_admin/controller/NotificationsController.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Notifications extends StatefulWidget {
   final String adminID;
@@ -312,7 +313,17 @@ class _NotificationsState extends State<Notifications> {
     String itaValue = (action == 'accept') ? 'accepted' : 'rejected';
 
     try {
-      await Notificationscontroller.updateService(id, itaValue, widget.adminID);
+      var admin = await Notificationscontroller.getAdmin(widget.adminID);
+
+      //await Notificationscontroller.updateService(id, itaValue, widget.adminID);
+        await Notificationscontroller.updateService(
+      id, 
+      itaValue, 
+      widget.adminID,
+      admin['tel'], 
+      admin['lieuMicanicien'] 
+    );
+      
       setState(() {
         livraisonNotifications = Notificationscontroller.getNotificationsLivraison();
         sansLivraisonNotifications = Notificationscontroller.getNotificationsSansLivraison();
@@ -351,6 +362,13 @@ class _NotificationsState extends State<Notifications> {
         return Colors.black;
     }
   }
+  /*Future<void> _openGoogleMaps(String locationUrl) async {
+    if (await canLaunch(locationUrl)) {
+      await launch(locationUrl);
+    } else {
+      throw 'تعذر فتح الرابط $locationUrl';
+    }
+  }*/
 
   Widget buildNotificationList(Future<List> notifications) {
     return FutureBuilder<List>(
@@ -407,6 +425,25 @@ class _NotificationsState extends State<Notifications> {
                           color: getItaTypeColor(notification['ita'] ?? 'No ita type'),
                         ),
                       ),
+                      Text(
+                        'teluser: ${notification['teluser'] ?? 'No teluser'}',
+                        style: TextStyle(color: Colors.grey[600]),)
+                       /*Row(
+                          children: [
+                            Text(
+                              'lieuUser: ${notification['lieuUser'] ?? 'No lieuMicanicien'}',
+                              style: TextStyle(color: Colors.grey[600]),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.map, color: Colors.blue),
+                              onPressed: () {
+                                if (notification['lieuMicanicien'] != null) {
+                                  _openGoogleMaps(notification['lieuMicanicien']);
+                                }
+                              },
+                            ),
+                          ],
+                        ),*/
                     ],
                   ),
                   trailing: Row(

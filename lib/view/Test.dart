@@ -136,9 +136,9 @@ class _TestState extends State<Test> {
 
     try {
       await Notificationscontroller.updateServiceIta(id, itaValue);
-      setState(() {
+      /*setState(() {
         // يمكنك تحديث قائمة الإشعارات هنا إذا لزم الأمر
-      });
+      });*/
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Service $itaValue successfully'),
